@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xmlns:http="http://www.mulesoft.org/schema/mule/http"
+	xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd">
+	<http:listener-config name="HTTP_Listener_config" doc:name="HTTP Listener config" doc:id="e6d5457c-231a-413c-aad5-877bcb11fa0a" >
+		<http:listener-connection host="0.0.0.0" port="8081" />
+	</http:listener-config>
+	<flow name="hello-mule-infoFlow" doc:id="70f1927f-8773-45cb-9bec-6e4f86a5b6fa" >
+		<http:listener doc:name="Listener" doc:id="dd928369-5e1b-47cf-ad78-589c24c33aa3" config-ref="HTTP_Listener_config" path="/demo"/>
+		<ee:transform doc:name="Transform Message" doc:id="0b77c5df-e31a-409c-b1a2-a4a74c7b35fa" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/java
+---
+{
+	"appName": aap.name,
+	"requestArrivalTime": now(),
+	"msg": "Hello from Mule Info Sample !!!"
+}]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+	</flow>
+	<flow name="versionFlow" doc:id="97b20cfc-fd9d-42bf-ba60-8a81579c47c1" > 
+		<http:listener doc:name="Listener" doc:id="b5cf1f88-527f-48c3-ab67-7b8f66d8cd6a" config-ref="HTTP_Listener_config" path="/info"/> 
+		<ee:transform doc:name="Transform Message" doc:id="1ec181bd-2439-4943-8f3c-7b65c4e515c1"> 
+			<ee:message> 
+				<ee:set-payload><![CDATA[%dw 2.0 
+output application/json 
+--- 
+readUrl("classpath://git.json", "application/json")]]></ee:set-payload> 
+			</ee:message> 
+		</ee:transform> 
+	</flow>
+</mule>
