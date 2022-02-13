@@ -13,10 +13,10 @@ http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/
 		<ee:transform doc:name="Transform Message" doc:id="0b77c5df-e31a-409c-b1a2-a4a74c7b35fa" >
 			<ee:message >
 				<ee:set-payload ><![CDATA[%dw 2.0
-output application/java
+output application/json
 ---
 {
-	"appName": aap.name,
+	"appName": app.name,
 	"requestArrivalTime": now(),
 	"msg": "Hello from Mule Info Sample !!!"
 }]]></ee:set-payload>

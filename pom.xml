@@ -56,6 +56,19 @@
 						${project.basedir}/src/main/resources/git.json
 					</generateGitPropertiesFilename>
 					<format>json</format>
+					<excludeProperties>
+						<excludeProperty>git.build.user.*</excludeProperty>
+						<excludeProperty>git.commit.user.*</excludeProperty>
+						<excludeProperty>git.commit.id.describe</excludeProperty>
+						<excludeProperty>git.commit.id.describe-short</excludeProperty>
+						<excludeProperty>git.commit.message.full</excludeProperty>
+						<excludeProperty>git.dirty</excludeProperty>
+						<excludeProperty>git.closest.*</excludeProperty>
+						<excludeProperty>git.local.*</excludeProperty>
+						<excludeProperty>git.remote.origin.url</excludeProperty>
+						<excludeProperty>git.total.commit.count</excludeProperty>
+						
+					</excludeProperties>
 				</configuration>
 
 			</plugin>
